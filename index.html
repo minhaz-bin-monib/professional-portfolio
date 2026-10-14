@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Khaza Minhaz Bin Monib — Project Coordination & Data Science</title>
+<meta name="description" content="Project coordination and operations professional with 5+ years in technology, software and logistics. M.Sc. in Applied Statistics & Data Science.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#12233D; --ink-soft:#4A5B73; --paper:#F4F7FB; --card:#FFFFFF; --line:#CBD6E4;
+  --blue:#2459D6; --blue-tint:#E3EBFB; --amber:#C77F00; --amber-tint:#FBEFD6; --slate:#7A8CA5; --slate-tint:#E6ECF3;
+  --display:'Bricolage Grotesque','Segoe UI',system-ui,sans-serif;
+  --body:'IBM Plex Sans','Segoe UI',system-ui,sans-serif;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font:400 1rem/1.6 var(--body)}
+a{color:var(--blue);text-underline-offset:3px}
+:focus-visible{outline:3px solid var(--blue);outline-offset:3px;border-radius:4px}
+.wrap{max-width:1040px;margin:0 auto;padding:0 24px}
+h1,h2,h3{font-family:var(--display);margin:0;line-height:1.1;letter-spacing:-.015em}
+
+/* top bar */
+nav{display:flex;gap:20px;justify-content:flex-end;padding:20px 0;font-size:.9rem;font-weight:500}
+nav a{color:var(--ink-soft);text-decoration:none}
+nav a:hover{color:var(--blue)}
+
+/* hero */
+.hero{display:grid;grid-template-columns:1fr auto;gap:40px;align-items:center;padding:24px 0 48px}
+.hero h1{font-size:clamp(2.4rem,6.4vw,4.6rem);font-weight:800}
+.hero .role{font-family:var(--display);font-size:clamp(1.15rem,2.4vw,1.5rem);font-weight:500;color:var(--blue);margin:14px 0 18px}
+.hero p{max-width:60ch;margin:0 0 22px;color:var(--ink-soft);font-size:1.075rem}
+.cta{display:flex;flex-wrap:wrap;gap:12px}
+.btn{display:inline-block;padding:11px 20px;border-radius:8px;font-weight:600;text-decoration:none;font-size:.95rem}
+.btn.primary{background:var(--ink);color:#fff}
+.btn.primary:hover{background:var(--blue)}
+.btn.ghost{border:1.5px solid var(--ink);color:var(--ink)}
+.btn.ghost:hover{border-color:var(--blue);color:var(--blue)}
+.photo{width:176px;height:176px;border-radius:50%;overflow:hidden;border:4px solid var(--card);box-shadow:0 0 0 1.5px var(--line)}
+.photo img{width:100%;height:100%;object-fit:cover;transform:scale(1.14);display:block}
+
+/* sections */
+section{padding:40px 0}
+.sec-head{margin-bottom:22px}
+.sec-head h2{font-size:clamp(1.6rem,3.4vw,2.2rem);font-weight:700}
+.sec-head p{margin:8px 0 0;color:var(--ink-soft);max-width:62ch}
+
+/* gantt */
+.gantt{background:var(--card);border:1.5px solid var(--ink);border-radius:6px;padding:20px 20px 12px}
+.g-axis,.g-row{display:grid;grid-template-columns:210px 1fr;gap:16px;align-items:center}
+.g-axis{padding-bottom:8px;font-size:.78rem;color:var(--slate);font-weight:500}
+.g-years,.g-track{display:grid;grid-template-columns:repeat(9,1fr)}
+.g-years span{border-left:1px solid var(--line);padding-left:6px}
+.g-group{font-family:var(--display);font-weight:700;font-size:.95rem;margin:16px 0 4px;color:var(--ink)}
+.g-row{padding:5px 0;border-top:1px dashed var(--line)}
+.g-label{font-size:.9rem;line-height:1.3}
+.g-label small{display:block;color:var(--ink-soft);font-size:.78rem}
+.g-track{position:relative;height:30px;background:
+  repeating-linear-gradient(to right,transparent 0,transparent calc(100%/9 - 1px),var(--line) calc(100%/9 - 1px),var(--line) calc(100%/9))}
+.g-bar{grid-row:1;border:0;cursor:pointer;height:22px;align-self:center;border-radius:4px;font:600 .72rem/22px var(--body);color:#fff;padding:0 8px;text-align:left;white-space:nowrap;overflow:hidden;transition:transform .15s,box-shadow .15s}
+.g-bar.work{background:var(--blue)}
+.g-bar.research{background:var(--amber)}
+.g-bar.edu{background:var(--slate)}
+.g-bar:hover{transform:scaleY(1.18)}
+.g-bar[aria-pressed="true"]{box-shadow:0 0 0 3px var(--paper),0 0 0 5px var(--ink)}
+.g-note{font-size:.78rem;color:var(--slate);margin:12px 0 4px}
+
+/* detail panel */
+.detail{margin-top:20px;background:var(--card);border:1.5px solid var(--line);border-left:6px solid var(--blue);border-radius:6px;padding:22px 24px}
+.detail[data-kind="research"]{border-left-color:var(--amber)}
+.detail[data-kind="edu"]{border-left-color:var(--slate)}
+.detail article[hidden]{display:none}
+.detail h3{font-size:1.35rem;font-weight:700}
+.detail .meta{margin:6px 0 12px;color:var(--ink-soft);font-size:.92rem}
+.detail ul{margin:0;padding-left:20px}
+.detail li{margin:5px 0;max-width:78ch}
+.detail .links{margin-top:14px;display:flex;gap:18px;flex-wrap:wrap;font-weight:500;font-size:.95rem}
+
+/* skills */
+.skills{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:28px}
+.skills h3{font-size:1.1rem;margin-bottom:10px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:0;padding:0;list-style:none}
+.chips li{padding:5px 12px;border-radius:999px;font-size:.88rem;background:var(--blue-tint);color:var(--ink)}
+.skills .col:nth-child(2) .chips li{background:var(--amber-tint)}
+.skills .col:nth-child(3) .chips li{background:var(--slate-tint)}
+.tool{margin:0 0 14px}
+.tool strong{display:block}
+.tool span{color:var(--ink-soft);font-size:.92rem}
+
+/* contact */
+.contact{background:var(--ink);color:#fff;border-radius:10px;padding:40px 36px;margin:24px 0 48px}
+.contact h2{font-size:clamp(1.6rem,3.4vw,2.2rem);color:#fff}
+.contact p{color:#C9D5E6;max-width:56ch}
+.contact .rows{display:flex;flex-wrap:wrap;gap:12px 32px;margin-top:20px}
+.contact a{color:#fff;font-weight:500}
+.contact .rows div{font-size:.98rem}
+.contact .rows small{display:block;color:#9FB1CB;font-size:.8rem}
+footer{padding:0 0 40px;color:var(--slate);font-size:.82rem}
+
+@media(max-width:760px){
+  .hero{grid-template-columns:1fr;gap:24px}
+  .photo{order:-1;width:132px;height:132px}
+  .g-axis{grid-template-columns:1fr}
+  .g-axis>span{display:none}
+  .g-row{grid-template-columns:1fr;gap:4px}
+  .g-bar{font-size:.68rem;padding:0 6px}
+  .gantt{padding:16px 14px 8px}
+  nav{justify-content:flex-start;flex-wrap:wrap}
+}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <nav aria-label="Sections">
+    <a href="#timeline">Timeline</a>
+    <a href="#skills">Skills</a>
+    <a href="#contact">Contact</a>
+  </nav>
+
+  <header class="hero">
+    <div>
+      <h1>Khaza Minhaz Bin Monib</h1>
+      <div class="role">Project coordination, operations and data science</div>
+      <p>I have 5+ years of experience keeping technology, software and logistics projects on schedule: tracking timelines and KPIs, chasing blockers, and reporting progress to management. I hold a B.Sc. in Computer Science and an M.Sc. in Applied Statistics &amp; Data Science, so I back decisions with data.</p>
+      <div class="cta">
+        <a class="btn primary" href="#timeline">See my timeline</a>
+        <a class="btn ghost" href="mailto:minhazbm463448@gmail.com">Email me</a>
+      </div>
+    </div>
+    <div class="photo"><img alt="Portrait of Khaza Minhaz Bin Monib" src="data:image/jpeg;base64,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"></div>
+  </header>
+
+  <section id="timeline" aria-labelledby="t-h">
+    <div class="sec-head">
+      <h2 id="t-h">Work, research and study, 2018–2026</h2>
+      <p>Select any bar to read what I did in that role.</p>
+    </div>
+
+    <div class="gantt" role="group" aria-label="Career timeline">
+      <div class="g-axis"><span></span><div class="g-years" aria-hidden="true">
+        <span>2018</span><span>2019</span><span>2020</span><span>2021</span><span>2022</span><span>2023</span><span>2024</span><span>2025</span><span>2026</span></div></div>
+
+      <div class="g-group">Work</div>
+      <div class="g-row"><div class="g-label">Delivery Hero BD (Foodpanda)<small>Executive Assistant</small></div>
+        <div class="g-track"><button class="g-bar work" style="grid-column:4/6" data-target="dh" aria-pressed="false">2021–22</button></div></div>
+      <div class="g-row"><div class="g-label">Digicon Technologies<small>Junior Executive</small></div>
+        <div class="g-track"><button class="g-bar work" style="grid-column:5/7" data-target="dg" aria-pressed="false">2022–23</button></div></div>
+      <div class="g-row"><div class="g-label">Apurba Technologies<small>Executive</small></div>
+        <div class="g-track"><button class="g-bar work" style="grid-column:6/8" data-target="ap" aria-pressed="false">2023–24</button></div></div>
+      <div class="g-row"><div class="g-label">All-March BD<small>Executive Officer (Acting Manager)</small></div>
+        <div class="g-track"><button class="g-bar work" style="grid-column:7/10" data-target="am" aria-pressed="true">2024–present</button></div></div>
+
+      <div class="g-group">Research</div>
+      <div class="g-row"><div class="g-label">Fire hazard prediction<small>Research Assistant, IUBAT</small></div>
+        <div class="g-track"><button class="g-bar research" style="grid-column:5/6" data-target="fire" aria-pressed="false">2022</button></div></div>
+      <div class="g-row"><div class="g-label">M.Sc. thesis<small>Research Associate, Jahangirnagar University</small></div>
+        <div class="g-track"><button class="g-bar research" style="grid-column:8/10" data-target="thesis" aria-pressed="false">2025–26</button></div></div>
+
+      <div class="g-group">Education</div>
+      <div class="g-row"><div class="g-label">B.Sc. Computer Science<small>IUBAT</small></div>
+        <div class="g-track"><button class="g-bar edu" style="grid-column:2/7" data-target="bsc" aria-pressed="false">2019–2023</button></div></div>
+      <div class="g-row"><div class="g-label">M.Sc. Applied Statistics &amp; Data Science<small>Jahangirnagar University</small></div>
+        <div class="g-track"><button class="g-bar edu" style="grid-column:7/9" data-target="msc" aria-pressed="false">2024–25</button></div></div>
+      <p class="g-note">Bars span the years listed on my CV.</p>
+    </div>
+
+    <div class="detail" id="detail" data-kind="work" aria-live="polite">
+      <article id="am" data-kind="work">
+        <h3>Executive Officer (Acting Manager), All-March BD Ltd.</h3>
+        <div class="meta">Dhaka · 2024 – present</div>
+        <ul>
+          <li>Coordinate cross-functional activities across technology, operations and business teams.</li>
+          <li>Monitor timelines, operational KPIs, deliverables and pending activities across departments.</li>
+          <li>Track progress against plan and follow up with owners to minimise delays.</li>
+          <li>Prepare performance and progress reports for management review and decisions.</li>
+          <li>Identify bottlenecks, coordinate corrective actions and follow up until they close.</li>
+          <li>Work with internal technical teams on reporting systems, tooling and workflow needs.</li>
+        </ul>
+      </article>
+      <article id="ap" data-kind="work" hidden>
+        <h3>Executive, Apurba Technologies Ltd.</h3>
+        <div class="meta">Dhaka · 2023 – 2024</div>
+        <ul>
+          <li>Worked with clients and engineering teams to turn requirements into deliverables.</li>
+          <li>Monitored delivery pipelines, timelines and open tasks to support on-time completion.</li>
+          <li>Found technical and process issues and coordinated fixes with the right teams.</li>
+          <li>Kept stakeholders informed with regular project status updates.</li>
+          <li>Contributed to process documentation and quality assurance.</li>
+        </ul>
+      </article>
+      <article id="dg" data-kind="work" hidden>
+        <h3>Junior Executive, Digicon Technologies Ltd.</h3>
+        <div class="meta">Dhaka · 2022 – 2023</div>
+        <ul>
+          <li>Supported engineering teams with application maintenance, testing and monitoring.</li>
+          <li>Tracked reported issues and followed up with teams until resolved.</li>
+          <li>Assisted with database management and technical documentation.</li>
+          <li>Coordinated between technical teams and operational stakeholders.</li>
+        </ul>
+      </article>
+      <article id="dh" data-kind="work" hidden>
+        <h3>Executive Assistant, Delivery Hero BD Ltd. (Foodpanda)</h3>
+        <div class="meta">Dhaka · 2021 – 2022</div>
+        <ul>
+          <li>Monitored operations and logistics performance in a high-volume, time-sensitive setting.</li>
+          <li>Tracked service performance and operational issues, and coordinated quick resolution.</li>
+          <li>Analysed operational data to find bottlenecks and performance gaps.</li>
+          <li>Prepared daily updates that supported management decisions.</li>
+          <li>Kept service and delivery performance steady across multiple teams.</li>
+        </ul>
+      </article>
+      <article id="thesis" data-kind="research" hidden>
+        <h3>Predicting occupational health risks of textile printing chemical exposure using AI</h3>
+        <div class="meta">M.Sc. thesis · Research Associate, Jahangirnagar University · 2025 – 2026</div>
+        <ul>
+          <li>Built a multi-class classification pipeline using chemical, workplace and demographic data.</li>
+          <li>Preprocessed with imputation, one-hot encoding and standard scaling through a ColumnTransformer.</li>
+          <li>Trained and benchmarked 9 ML models with GridSearchCV and 5-seed validation.</li>
+          <li>Applied SHAP for model explainability and prototyped a real-time computer-vision component (OpenCV + DeepFace).</li>
+        </ul>
+        <div class="links"><a href="https://drive.google.com/file/d/1_uv0h6D-whDQG6YQyBqdDnRe_zJFsp2f" target="_blank" rel="noopener">Project report</a></div>
+      </article>
+      <article id="fire" data-kind="research" hidden>
+        <h3>Predictive modeling of fire hazard: integrating environmental factors with machine learning</h3>
+        <div class="meta">Research Assistant, AI/ML, IUBAT · 2022 · Published on IEEE Xplore</div>
+        <ul>
+          <li>Handled the full ML workflow in Python: data prep, feature selection, modeling and evaluation.</li>
+          <li>Used ANOVA-F and Chi-Square for feature selection and compared multiple classifiers.</li>
+          <li>Reached up to 97.98% classification accuracy; findings co-authored and published as an IEEE paper.</li>
+        </ul>
+        <div class="links">
+          <a href="https://ieeexplore.ieee.org/document/11012975" target="_blank" rel="noopener">Read the paper</a>
+          <a href="https://colab.research.google.com/drive/1LgLeF5RXODTGMtwSUE4ttR6DLwSCQAVZ" target="_blank" rel="noopener">Project code</a>
+        </div>
+      </article>
+      <article id="msc" data-kind="edu" hidden>
+        <h3>Master of Science in Applied Statistics &amp; Data Science</h3>
+        <div class="meta">Jahangirnagar University, Dhaka · 2024 – 2025 · GPA 3.50 / 4.00</div>
+        <ul><li>Focus on statistical analysis and data-driven problem solving, applied in my thesis research.</li></ul>
+      </article>
+      <article id="bsc" data-kind="edu" hidden>
+        <h3>Bachelor of Science in Computer Science</h3>
+        <div class="meta">International University of Business Agriculture and Technology (IUBAT), Dhaka · 2019 – 2023 · GPA 3.43 / 4.00</div>
+        <ul><li>Foundation in C, C++, C#, JavaScript, HTML/CSS and database management.</li></ul>
+      </article>
+    </div>
+  </section>
+
+  <section id="skills" aria-labelledby="s-h">
+    <div class="sec-head"><h2 id="s-h">Skills and tools</h2></div>
+    <div class="skills">
+      <div class="col">
+        <h3>Project control</h3>
+        <ul class="chips">
+          <li>Project coordination</li><li>Schedule &amp; timeline tracking</li><li>Progress monitoring</li><li>Deliverable tracking</li>
+          <li>KPI monitoring</li><li>Management reporting</li><li>Issue &amp; escalation tracking</li><li>Cross-functional coordination</li>
+          <li>Stakeholder management</li><li>Process improvement</li>
+        </ul>
+      </div>
+      <div class="col">
+        <h3>Analytical and technical</h3>
+        <ul class="chips">
+          <li>Microsoft Excel</li><li>Data analysis &amp; reporting</li><li>Statistical analysis</li><li>Database management</li>
+          <li>Software QA &amp; testing</li><li>Technical documentation</li><li>C, C++, C#</li><li>JavaScript</li><li>HTML/CSS</li>
+        </ul>
+      </div>
+      <div class="col">
+        <h3>Software</h3>
+        <p class="tool"><strong>Microsoft Project</strong><span>Scheduling, task dependencies, Gantt charts, resource and progress tracking</span></p>
+        <ul class="chips"><li>Excel</li><li>Word</li><li>PowerPoint</li><li>Google Sheets</li><li>Google Docs</li></ul>
+        <p class="tool" style="margin-top:18px"><strong>Languages</strong><span>English (fluent), Bengali (native), Arabic (reading)</span></p>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" aria-labelledby="c-h" style="padding:0">
+    <div class="contact">
+      <h2 id="c-h">I'm looking for a Project Control or Project Planning role.</h2>
+      <p>If you need someone who tracks the schedule, reports clearly and follows issues through to closure, get in touch.</p>
+      <div class="rows">
+        <div><small>Email</small><a href="mailto:minhazbm463448@gmail.com">minhazbm463448@gmail.com</a></div>
+        <div><small>Phone</small><a href="tel:+8801703824557">+880 1703-824557</a></div>
+        <div><small>Location</small>Dhaka Cantonment, Bangladesh</div>
+      </div>
+    </div>
+    <footer>© Khaza Minhaz Bin Monib</footer>
+  </section>
+</div>
+
+<script>
+(function(){
+  var bars=document.querySelectorAll('.g-bar');
+  var panel=document.getElementById('detail');
+  var arts=panel.querySelectorAll('article');
+  function show(id){
+    arts.forEach(function(a){
+      var on=a.id===id;
+      a.hidden=!on;
+      if(on) panel.setAttribute('data-kind',a.getAttribute('data-kind'));
+    });
+    bars.forEach(function(b){b.setAttribute('aria-pressed', b.dataset.target===id?'true':'false');});
+  }
+  bars.forEach(function(b){b.addEventListener('click',function(){show(b.dataset.target);});});
+  show('am');
+})();
+</script>
+</body>
+</html>
